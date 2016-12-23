@@ -133,11 +133,12 @@ class App extends Component {
   
   clearCanvas() {
     const { ctx, canvas } = this.state;
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
   }
   
-  saveImg() {
-    
+  saveImg(e) {
+    const { downloadButton, canvas } = this.refs;
+    downloadButton.setAttribute('href', canvas.toDataURL('image/png'));
   }
   
   render() {
@@ -198,7 +199,8 @@ class App extends Component {
             className="controls-input controls-download" 
             id="save" 
             download="drawing.png" 
-            href="#" 
+            href="#"
+            ref="downloadButton"
             target="_blank"
             onClick={this.saveImg}
           >
