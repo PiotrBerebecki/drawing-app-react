@@ -139,10 +139,10 @@ class App extends Component {
   saveImg(e) {
     const { downloadButton, canvas } = this.refs;
     downloadButton.setAttribute('href', canvas.toDataURL('image/png'));
+    
   }
   
   render() {
-    
     const { strokeStyle, inputSize } = this.state;
     
     return (
