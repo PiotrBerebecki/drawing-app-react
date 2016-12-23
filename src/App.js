@@ -7,7 +7,7 @@ class App extends Component {
     this.state = {
       canvas: null,
       ctx: null,
-      strokeStyle: '#03A9F4',
+      strokeStyle: '#00D8FF',
       inputSize: 3,
       lineWidth: 30,
       isDrawing: false,
@@ -22,6 +22,10 @@ class App extends Component {
     
     this.handleTouchStart = this.handleTouchStart.bind(this);
     this.handleTouchMove = this.handleTouchMove.bind(this);
+    
+    this.stopSubmit = this.stopSubmit.bind(this);
+    this.clearCanvas = this.clearCanvas.bind(this);
+    this.saveImg = this.saveImg.bind(this);
   }
   
   componentDidMount() {
@@ -117,16 +121,27 @@ class App extends Component {
     });
   }
   
-  
   finishDrawing() {
     this.setState({
       isDrawing: false
     });
   }
   
+  stopSubmit(e) {
+    e.preventDefault();
+  }
+  
+  clearCanvas() {
+    const { ctx, canvas } = this.state;
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+  }
+  
+  saveImg() {
+    
+  }
+  
   render() {
     
-    console.log(this.state);
     const { strokeStyle, inputSize } = this.state;
     
     return (
@@ -144,7 +159,10 @@ class App extends Component {
         >
         </canvas>
 
-        <form className="controls" id="form">
+        <form 
+          className="controls" 
+          id="form"
+          onSubmit={this.stopSubmit}>
 
           <input 
             type="range" 
@@ -167,12 +185,23 @@ class App extends Component {
             id="color"
           />
           
-          <button type="button" className="controls-input controls-clear" id="clear">
+          <button 
+            type="button" 
+            className="controls-input controls-clear" 
+            id="clear"
+            onClick={this.clearCanvas}
+          >
             <i className="fa fa-trash-o" aria-hidden="true"></i>
           </button>
           
-          <a className="controls-input controls-download" id="save" href="#" 
-             download="drawing.png" target="_blank">
+          <a 
+            className="controls-input controls-download" 
+            id="save" 
+            download="drawing.png" 
+            href="#" 
+            target="_blank"
+            onClick={this.saveImg}
+          >
             <i className="fa fa-download" aria-hidden="true"></i>
           </a>
           
